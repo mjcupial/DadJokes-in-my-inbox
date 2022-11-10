@@ -1,8 +1,8 @@
 from email.message import EmailMessage  #https://docs.python.org/3/library/email.html
 import os, ssl, smtplib
 def send_email():
-    email_sender = os.getenv('BOTMAIL')
-    email_password = os.environ.get('BOTPASS')
+    email_sender = os.getenv('botmail')
+    email_password = os.environ.get('botmailpass')
     email_receiver = 'mj.cupial@gmail.com'
     subject = "Welcome form Fifi Bot!"
     body = """
@@ -19,9 +19,9 @@ def send_email():
     #     smtp.login(email_sender, email_password)
     #     smtp.sendmail(email_sender, email_receiver, em.as_string())
 
-    server = smtplib.SMTP('smtp.mail.yahoo.com', 587)
+    server = smtplib.SMTP('smtp-mail.outlook.com', 587)
     server.starttls()
     server.login(email_sender, email_password)
-    server.sendmail(email_sender, email_receiver, subject)
+    server.sendmail(email_sender, email_receiver, "Welcome from Luna Pybot!")
     print('mail sent')
 send_email()
