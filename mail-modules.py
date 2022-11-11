@@ -1,27 +1,26 @@
 from email.message import EmailMessage  #https://docs.python.org/3/library/email.html
-import os, ssl, smtplib
-def send_email():
-    email_sender = os.getenv('botmail')
-    email_password = os.environ.get('botmailpass')
-    email_receiver = 'mj.cupial@gmail.com'
-    subject = "Welcome form Fifi Bot!"
-    body = """
-    This is my first mail sent to you. I'm so excited! :D
-    """
-    # em = EmailMessage()
-    # em['From'] = email_sender
-    # em['To'] = email_receiver
-    # em['subject'] = subject
-    # em.set_content(body)
-    #
-    # context = ssl.create_default_context()
-    # with smtplib.SMTP_SSL('smtp.mail.yahoo.com', 465, context=context) as smtp:
-    #     smtp.login(email_sender, email_password)
-    #     smtp.sendmail(email_sender, email_receiver, em.as_string())
+import os, smtplib
 
-    server = smtplib.SMTP('smtp-mail.outlook.com', 587)
-    server.starttls()
-    server.login(email_sender, email_password)
-    server.sendmail(email_sender, email_receiver, "Welcome from Luna Pybot!")
-    print('mail sent')
-send_email()
+email_sender = os.getenv('botmail')
+email_password = os.environ.get('botmailpass')
+email_receiver = 'mj.cupial@gmail.com'
+
+# server = smtplib.SMTP('smtp-mail.outlook.com', 587)
+# server.starttls()
+# server.login(email_sender, email_password)
+# server.sendmail(email_sender, email_receiver, "Welcome from Luna Pybot!")
+# print('mail sent')
+with smtplib.SMTP('smtp-mail.outlook.com', 587) as smtp:
+    smtp.ehlo()
+    smtp.starttls()
+    smtp.ehlo()
+
+    smtp.login(email_sender, email_password)
+    subject = "My first auto email! :D"
+    body = "Welcome from Luna Pybot!"
+
+    msg = f"Subject: {subject}\n\n{body}"
+
+    smtp.sendmail(email_sender, email_receiver, msg)
+print("message siup")
+
